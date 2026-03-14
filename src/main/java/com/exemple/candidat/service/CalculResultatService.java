@@ -65,20 +65,20 @@ public class CalculResultatService {
             if (params.isEmpty())
                 continue;
 
-            // ✅ Étape 1 : somme de toutes les différences entre chaque paire de notes
+            //Étape 1 : somme de toutes les différences entre chaque paire de notes
             double diff = calculerSommeDifferences(notesMatiere);
 
-            // ✅ Étape 2 : choisir le paramètre qui correspond à cette différence
+            // Étape 2 : choisir le paramètre qui correspond à cette différence
             Parametre selectedParam = choisirParametre(params, diff);
             if (selectedParam == null)
                 continue;
             if (selectedParam.getResolution() == null || selectedParam.getOperateur() == null)
                 continue;
 
-            // ✅ Étape 3 : appliquer la résolution → min, max ou moyenne
+            //Étape 3 : appliquer la résolution → min, max ou moyenne
             double noteFinale = appliquerResolution(notesMatiere, selectedParam.getResolution().getNom());
 
-            // ✅ Étape 4 : reliquat et statut
+            // Étape 4 : reliquat et statut
             double reliquat = Math.round((noteFinale - 10.0) * 100.0) / 100.0;
             boolean admis = noteFinale >= 10.0;
 
@@ -109,10 +109,6 @@ public class CalculResultatService {
         return global;
     }
 
-    /**
-     * Étape 1 : somme de toutes les différences entre chaque paire de notes.
-     * Ex: [13, 12, 8] → |13-12| + |13-8| + |12-8| = 1 + 5 + 4 = 10
-     */
     private double calculerSommeDifferences(List<Note> notes) {
         if (notes.size() < 2)
             return 0.0;
@@ -125,13 +121,6 @@ public class CalculResultatService {
         return sum;
     }
 
-    /**
-     * Étape 2 : choisir le paramètre dont la condition correspond à la diff
-     * calculée.
-     * Si plusieurs matchent, on prend celui dont le seuil est le plus proche de la
-     * diff.
-     * Si aucun ne matche, fallback sur le plus proche en distance.
-     */
     private Parametre choisirParametre(List<Parametre> params, double diff) {
         Parametre meilleur = null;
         double distanceMin = Double.MAX_VALUE;
