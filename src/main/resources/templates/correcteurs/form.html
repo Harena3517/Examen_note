@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+
+<body>
+    <section style="max-width: 600px; margin: 0 auto;">
+        <div class="glass-card" style="padding: 40px;">
+            <div style="margin-bottom: 30px; border-bottom: 1px solid var(--glass-border); padding-bottom: 20px;">
+                <h2 style="font-family: 'Outfit'; font-size: 1.8rem;"
+                    th:text="${correcteur.id == null ? 'Nouvel Expert Correcteur' : 'Édition de l''Expert'}"></h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Informations sur l'examinateur</p>
+            </div>
+
+            <form th:action="@{/correcteurs/enregistrer}" th:object="${correcteur}" method="post">
+                <input type="hidden" th:field="*{id}">
+
+                <div class="form-group">
+                    <label>Nom de l'expert</label>
+                    <input type="text" th:field="*{nom}" placeholder="Ex: ANDRIAMAHERY" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Prénoms</label>
+                    <input type="text" th:field="*{prenom}" placeholder="Ex: Lucas" required>
+                </div>
+
+                <div style="margin-top: 40px; display: flex; gap: 15px;">
+                    <button type="submit" class="primary-btn" style="flex: 1;">
+                        <i class="fas fa-user-plus" style="margin-right: 8px;"></i> Enregistrer l'Expert
+                    </button>
+                    <a th:href="@{/correcteurs}" class="btn-outline-primary"
+                        style="text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 0 24px;">
+                        Annuler
+                    </a>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>

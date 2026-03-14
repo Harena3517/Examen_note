@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+
+<body>
+    <section>
+        <!-- Profile Card -->
+        <div class="glass-card"
+            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding: 30px;">
+            <div>
+                <h3 class="section-title"
+                    style="margin-bottom: 5px; color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase;">
+                    Dossier Étudiant</h3>
+                <h2 style="font-family: 'Outfit'; font-size: 2rem; margin-bottom: 5px;"
+                    th:text="${resultat.nomCandidat + ' ' + resultat.prenomCandidat}"></h2>
+                <p style="color: var(--primary); font-weight: 600; letter-spacing: 1px;"
+                    th:text="'MATRICULE: ' + ${resultat.matricule}"></p>
+            </div>
+            <div style="text-align: right;">
+                <div th:class="${resultat.statusGlobal == 'ADMIS' ? 'badge badge-success' : 'badge badge-danger'}"
+                    style="font-size: 1.5rem; padding: 15px 30px; border-radius: 16px; font-weight: 800; display: inline-block; box-shadow: 0 0 30px rgba(0,0,0,0.2);"
+                    th:text="${resultat.statusGlobal}"></div>
+                <p style="margin-top: 10px; color: var(--text-muted);">Reliquat Global: <span
+                        th:text="${resultat.reliquatGlobal >= 0 ? '+' : ''} + ${resultat.reliquatGlobal}"
+                        style="color: white; font-weight: 700;"></span></p>
+            </div>
+        </div>
+
+        <h3 class="section-title"
+            style="margin-bottom: 25px; font-family: 'Outfit'; display: flex; align-items: center; gap: 10px;">
+            <i class="fas fa-microchip" style="color: var(--primary);"></i> Analyse par Compétence
+        </h3>
+
+        <!-- Subjects Grid -->
+        <div class="subjects-grid">
+            <div th:each="d : ${resultat.details}" class="glass-card" style="position: relative; overflow: hidden;">
+                <div th:if="${d.status == 'Admis'}"
+                    style="position: absolute; top: 0; right: 0; width: 4px; height: 100%; background: var(--success);">
+                </div>
+                <div th:if="${d.status != 'Admis'}"
+                    style="position: absolute; top: 0; right: 0; width: 4px; height: 100%; background: var(--danger);">
+                </div>
+
+                <div
+                    style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+                    <div>
+                        <h3 th:text="${d.nomMatiere}"
+                            style="font-family: 'Outfit'; font-size: 1.25rem; margin-bottom: 5px;"></h3>
+                        <span class="badge" th:classappend="${d.status == 'Admis' ? 'badge-success' : 'badge-danger'}"
+                            th:text="${d.status}"></span>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="font-size: 1.8rem; font-weight: 800; display: block;"
+                            th:text="${d.noteCalculee}"></span>
+                        <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);"
+                            th:text="'Seuil: ' + ${d.seuil}"></span>
+                    </div>
+                </div>
+
+                <div
+                    style="background: rgba(0,0,0,0.2); border-radius: 12px; padding: 12px; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Différence / Seuil</span>
+                    <span th:class="${d.reliquat >= 0 ? 'badge badge-danger' : 'badge badge-success'}"
+                        th:text="(${d.reliquat >= 0 ? '+' : ''}) + ${d.reliquat}"></span>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; display: flex; gap: 15px;">
+            <a th:href="@{/candidats}" class="btn-outline-primary"
+                style="display: inline-flex; align-items: center; gap: 8px;">
+                <i class="fas fa-arrow-left"></i> Retour au Portail
+            </a>
+            <button onclick="window.print()" class="btn-outline-primary"
+                style="cursor: pointer; display: inline-flex; align-items: center; gap: 8px; background: transparent;">
+                <i class="fas fa-print"></i> Exporter Rapport
+            </button>
+        </div>
+    </section>
+</body>
+
+</html>

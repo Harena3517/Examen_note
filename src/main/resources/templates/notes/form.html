@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+
+<body>
+    <section style="max-width: 600px; margin: 0 auto;">
+        <div class="glass-card" style="padding: 40px;">
+            <div style="margin-bottom: 30px; border-bottom: 1px solid var(--glass-border); padding-bottom: 20px;">
+                <h2 style="font-family: 'Outfit'; font-size: 1.8rem;">Saisie de Note</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Enregistrement d'une évaluation académique</p>
+            </div>
+
+            <form th:action="@{/notes/enregistrer}" th:object="${note}" method="post">
+                <div class="form-group">
+                    <label>Sélectionner le Candidat</label>
+                    <select th:field="*{candidat.id}" required>
+                        <option th:each="c : ${candidats}" th:value="${c.id}" th:text="${c.nom + ' ' + c.prenom}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Matière concernée</label>
+                    <select th:field="*{matiere.id}" required>
+                        <option th:each="m : ${matieres}" th:value="${m.id}" th:text="${m.nom}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Expert Correcteur</label>
+                    <select th:field="*{correcteur.id}" required>
+                        <option th:each="co : ${correcteurs}" th:value="${co.id}" th:text="${co.nom + ' ' + co.prenom}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Valeur de la Note (0-20)</label>
+                    <input type="number" step="0.5" min="0" max="20" th:field="*{note}" placeholder="Ex: 14.5" required>
+                </div>
+
+                <div style="margin-top: 40px; display: flex; gap: 15px;">
+                    <button type="submit" class="primary-btn" style="flex: 1;">
+                        <i class="fas fa-check-circle" style="margin-right: 8px;"></i> Valider la Saisie
+                    </button>
+                    <a th:href="@{/notes}" class="btn-outline-primary"
+                        style="text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 0 24px;">
+                        Annuler
+                    </a>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>

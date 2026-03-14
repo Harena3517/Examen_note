@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+
+<body>
+    <section>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <div>
+                <h2 style="font-family: 'Outfit'; font-size: 1.8rem;">Registre des Notes</h2>
+                <p style="color: var(--text-muted);">Saisie brute des évaluations par correcteur</p>
+            </div>
+            <a th:href="@{/notes/nouveau}" class="primary-btn" style="text-decoration: none;">
+                <i class="fas fa-pen-alt"></i> Nouvelle Saisie
+            </a>
+        </div>
+
+        <div class="glass-card" style="padding: 0; overflow: hidden;">
+            <table style="margin-top: 0;">
+                <thead>
+                    <tr>
+                        <th>Candidat</th>
+                        <th>Discipline</th>
+                        <th>Examinateur</th>
+                        <th>Note</th>
+                        <th style="text-align: right;">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="n : ${notes}">
+                        <td th:text="${n.candidat.nom + ' ' + n.candidat.prenom}" style="font-weight: 600;"></td>
+                        <td th:text="${n.matiere.nom}"></td>
+                        <td th:text="${n.correcteur.nom}" style="color: var(--text-muted);"></td>
+                        <td>
+                            <span style="font-size: 1.1rem; font-weight: 700; color: var(--primary);"
+                                th:text="${n.note}"></span>
+                        </td>
+                        <td style="text-align: right;">
+                            <a th:href="@{/notes/modifier/{id}(id=${n.id})}" class="btn-outline-primary"
+                                style="margin-right: 5px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                                <i class="fas fa-edit"></i> Modifier
+                            </a>
+                            <a th:href="@{/notes/supprimer/{id}(id=${n.id})}" class="btn-outline-danger"
+                                style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                                <i class="fas fa-trash-alt"></i> Supprimer
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+
+</html>
