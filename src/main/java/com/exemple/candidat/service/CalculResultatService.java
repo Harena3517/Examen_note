@@ -68,7 +68,7 @@ public class CalculResultatService {
             //Étape 1 : somme de toutes les différences entre chaque paire de notes
             double diff = calculerSommeDifferences(notesMatiere);
 
-            // Étape 2 : choisir le paramètre qui correspond à cette différence
+            // choisir le paramètre qui correspond à cette différence
             Parametre selectedParam = choisirParametre(params, diff);
             if (selectedParam == null)
                 continue;
