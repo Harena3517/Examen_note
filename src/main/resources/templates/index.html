@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html}">
+
+<head>
+    <title>Accueil</title>
+</head>
+
+<body>
+    <div th:fragment="content">
+        <div class="jumbotron">
+            <h1 class="display-4">Bienvenue dans l'application Forage !</h1>
+            <p class="lead">Gérez vos clients, devis et travaux en toute simplicité.</p>
+            <hr class="my-4">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Clients</h5>
+                            <a th:href="@{/clients}" class="btn btn-primary">Gérer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Demandes</h5>
+                            <a th:href="@{/demandes}" class="btn btn-primary">Gérer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Types de Devis</h5>
+                            <a th:href="@{/typedevis}" class="btn btn-primary">Gérer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Devis</h5>
+                            <a th:href="@{/devis}" class="btn btn-primary">Gérer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Détails Devis</h5>
+                            <a th:href="@{/detaildevis}" class="btn btn-primary">Gérer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Status</h5>
+                            <a th:href="@{/status}" class="btn btn-primary">Gérer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Travaux</h5>
+                            <a th:href="@{/travaux}" class="btn btn-primary">Gérer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Suivi Travaux</h5>
+                            <a th:href="@{/travauxstatus}" class="btn btn-primary">Gérer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

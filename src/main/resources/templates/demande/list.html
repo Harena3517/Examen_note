@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html}">
+
+<head>
+    <title>Liste des Demandes | ForagePro</title>
+</head>
+
+<body>
+    <div th:fragment="content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3 mb-1 fw-bold text-dark">Suivi des Demandes</h1>
+                <p class="text-muted small mb-0">Toutes les sollicitations de forage et interventions.</p>
+            </div>
+            <a th:href="@{/demandes/add}" class="btn btn-primary btn-primary-premium shadow-sm">
+                <i class="bi bi-patch-question-fill me-2"></i>Nouvelle Demande
+            </a>
+        </div>
+
+        <div class="card card-premium overflow-hidden border-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4 text-uppercase small fw-bold text-secondary" style="font-size: 0.7rem;">Date
+                                & Heure
+                            </th>
+                            <th class="text-uppercase small fw-bold text-secondary" style="font-size: 0.7rem;">Client
+                            </th>
+                            <th class="text-uppercase small fw-bold text-secondary" style="font-size: 0.7rem;">
+                                Localisation</th>
+                            <th class="text-center pe-4 text-uppercase small fw-bold text-secondary"
+                                style="font-size: 0.7rem;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="demande : ${demandes}">
+                            <td class="ps-4">
+                                <div class="fw-medium text-dark"
+                                    th:text="${#temporals.format(demande.dateDemande, 'dd/MM/yyyy HH:mm')}"></div>
+                                <div class="text-muted small" th:text="${'Réf: #DEM-' + demande.idDemande}"></div>
+                            </td>
+                            <td>
+                                <div class="fw-bold text-primary"
+                                    th:text="${demande.client.nom + ' ' + demande.client.prenom}"></div>
+                            </td>
+                            <td>
+                                <div class="fw-semibold text-dark"><i
+                                        class="bi bi-geo-alt me-1 text-danger opacity-75"></i> <span
+                                        th:text="${demande.lieu}"></span></div>
+                                <div class="text-muted small" th:text="${demande.district}"></div>
+                            </td>
+                            <td class="text-center pe-4">
+                                <div class="btn-group shadow-sm rounded-2 bg-white border">
+                                    <a th:href="@{/demandes/edit/{id}(id=${demande.idDemande})}"
+                                        class="btn btn-sm btn-link text-warning p-2 px-3 border-end" title="Modifier">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a th:href="@{/demandes/delete/{id}(id=${demande.idDemande})}"
+                                        class="btn btn-sm btn-link text-danger p-2 px-3"
+                                        onclick="return confirm('Supprimer cette demande ?')" title="Supprimer">
+                                        <i class="bi bi-trash3"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(demandes)}">
+                            <td colspan="4" class="text-center py-5 text-muted">
+                                <i class="bi bi-clipboard-x fs-1 d-block mb-3 opacity-25"></i>
+                                <p class="mb-0">Aucune demande enregistrée.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
