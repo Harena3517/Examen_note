@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+
+<body>
+    <section>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <div>
+                <h2 style="font-family: 'Outfit'; font-size: 1.8rem;">Configuration des Seuils</h2>
+                <p style="color: var(--text-muted);">Paramétrage des règles de décision par matière</p>
+            </div>
+            <a th:href="@{/parametres/nouveau}" class="primary-btn" style="text-decoration: none;">
+                <i class="fas fa-plus"></i> Nouveau Paramètre
+            </a>
+        </div>
+
+        <div class="glass-card" style="padding: 0; overflow: hidden;">
+            <table style="margin-top: 0;">
+                <thead>
+                    <tr>
+                        <th>Matière</th>
+                        <th>Opérateur</th>
+                        <th>Seuil</th>
+                        <th>Résolution</th>
+                        <th style="text-align: right;">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="p : ${parametres}">
+                        <td th:text="${p != null && p.matiere != null ? p.matiere.nom : 'N/A'}"
+                            style="font-weight: 700;"></td>
+                        <td>
+                            <span class="badge" style="background: rgba(188, 19, 254, 0.1); color: var(--primary);"
+                                th:text="${p != null && p.operateur != null ? p.operateur.operateur : 'N/A'}"></span>
+                        </td>
+                        <td th:text="${p != null ? p.seuil : '0.0'}" style="font-weight: 600;"></td>
+                        <td th:text="${p != null && p.resolution != null ? p.resolution.nom : 'N/A'}"
+                            style="color: var(--text-muted);"></td>
+                        <td style="text-align: right;">
+                            <a th:if="${p != null}" th:href="@{/parametres/modifier/{id}(id=${p.id})}"
+                                class="btn-outline-primary"
+                                style="margin-right: 5px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-edit"></i> Modifier
+                            </a>
+                            <a th:if="${p != null}" th:href="@{/parametres/supprimer/{id}(id=${p.id})}"
+                                class="btn-outline-danger"
+                                style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-trash"></i> Supprimer
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+
+</html>

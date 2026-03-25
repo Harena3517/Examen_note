@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+
+<body>
+    <section>
+        <h2>Tableau des Résultats</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>MATRICULE</th>
+                    <th>NOM</th>
+                    <th>PRÉNOM</th>
+                    <th>RELIQUAT GLOBAL</th>
+                    <th>STATUT</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="r : ${resultats}">
+                    <td th:text="${r.matricule}"></td>
+                    <td th:text="${r.nomCandidat}"></td>
+                    <td th:text="${r.prenomCandidat}"></td>
+                    <td th:text="${r.reliquatGlobal >= 0 ? '+' : ''} + ${r.reliquatGlobal}"></td>
+                    <td>
+                        <span class="badge"
+                            th:classappend="${r.statusGlobal == 'ADMIS' ? 'badge-success' : 'badge-danger'}"
+                            th:text="${r.statusGlobal}"></span>
+                    </td>
+                    <td>
+                        <a th:href="@{/resultats/{id}(id='NOT_YET_SUPPORTED_WITH_DTO')}"
+                            class="btn btn-primary">Détails</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</body>
+
+</html>

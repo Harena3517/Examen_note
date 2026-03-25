@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+
+<body>
+    <section style="max-width: 600px; margin: 0 auto;">
+        <div class="glass-card" style="padding: 40px;">
+            <div style="margin-bottom: 30px; border-bottom: 1px solid var(--glass-border); padding-bottom: 20px;">
+                <h2 style="font-family: 'Outfit'; font-size: 1.8rem;"
+                    th:text="${candidat.id == null ? 'Nouveau Dossier Candidat' : 'Édition du Candidat'}"></h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Informations d'identité et matricule</p>
+            </div>
+
+            <form th:action="@{/candidats/enregistrer}" th:object="${candidat}" method="post">
+                <input type="hidden" th:field="*{id}">
+
+                <div class="form-group">
+                    <label>Nom de famille</label>
+                    <input type="text" th:field="*{nom}" placeholder="Ex: RAKOTO" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Prénoms</label>
+                    <input type="text" th:field="*{prenom}" placeholder="Ex: Jean" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Numéro de Matricule</label>
+                    <input type="text" th:field="*{matricule}" placeholder="Ex: MAT-2024-001" required>
+                </div>
+
+                <div style="margin-top: 40px; display: flex; gap: 15px;">
+                    <button type="submit" class="primary-btn" style="flex: 1;">
+                        <i class="fas fa-save" style="margin-right: 8px;"></i> Enregistrer le Dossier
+                    </button>
+                    <a th:href="@{/candidats}" class="btn-outline-primary"
+                        style="text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 0 24px;">
+                        Annuler
+                    </a>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>

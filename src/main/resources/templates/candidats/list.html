@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+
+<body>
+    <section>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <div>
+                <h2 style="font-family: 'Outfit'; font-size: 1.8rem;">Annuaire des Candidats</h2>
+                <p style="color: var(--text-muted);">Gestion centrale des dossiers d'admission</p>
+            </div>
+            <a th:href="@{/candidats/nouveau}" class="primary-btn" style="text-decoration: none;">
+                <i class="fas fa-plus"></i> Nouveau Dossier
+            </a>
+        </div>
+
+        <div class="glass-card" style="padding: 0; overflow: hidden;">
+            <table style="margin-top: 0;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Identité</th>
+                        <th>Matricule</th>
+                        <th style="text-align: right;">Opérations Expertise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="c : ${candidats}">
+                        <td style="font-weight: 700; color: var(--primary);" th:text="'#' + ${c.id}"></td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div
+                                    style="width: 32px; height: 32px; background: rgba(255,255,255,0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div>
+                                    <span th:text="${c.nom + ' ' + c.prenom}"
+                                        style="display: block; font-weight: 600;"></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td th:text="${c.matricule}"></td>
+                        <td style="text-align: right;">
+                            <a th:href="@{/resultats/{id}(id=${c.id})}" class="primary-btn"
+                                style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; font-size: 0.85rem; text-decoration: none; margin-right: 10px;">
+                                <i class="fas fa-chart-pie"></i> Analyser
+                            </a>
+                            <a th:href="@{/candidats/modifier/{id}(id=${c.id})}" class="btn-outline-primary"
+                                style="display: inline-flex; align-items: center; gap: 5px; margin-right: 5px; font-size: 0.85rem; text-decoration: none;">
+                                <i class="fas fa-edit"></i> Modifier
+                            </a>
+                            <a th:href="@{/candidats/supprimer/{id}(id=${c.id})}" class="btn-outline-danger"
+                                style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.85rem; text-decoration: none;">
+                                <i class="fas fa-trash"></i> Supprimer
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+
+<body>
+    <section>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <div>
+                <h2 style="font-family: 'Outfit'; font-size: 1.8rem;">Référentiel des Matières</h2>
+                <p style="color: var(--text-muted);">Configuration des disciplines d'examen</p>
+            </div>
+            <a th:href="@{/matieres/nouveau}" class="primary-btn" style="text-decoration: none;">
+                <i class="fas fa-plus"></i> Nouvelle Matière
+            </a>
+        </div>
+
+        <div class="glass-card" style="padding: 0; overflow: hidden;">
+            <table style="margin-top: 0;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Discipline</th>
+                        <th style="text-align: right;">OPÉRATIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="m : ${matieres}">
+                        <td style="font-weight: 700; color: var(--primary);" th:text="'#' + ${m.id}"></td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div
+                                    style="width: 32px; height: 32px; background: rgba(255,255,255,0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+                                    <i class="fas fa-book-open"></i>
+                                </div>
+                                <span th:text="${m.nom}" style="font-weight: 600;"></span>
+                            </div>
+                        </td>
+                        <td style="text-align: right;">
+                            <a th:href="@{/matieres/modifier/{id}(id=${m.id})}" class="btn-outline-primary"
+                                style="margin-right: 5px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-edit"></i> Modifier
+                            </a>
+                            <a th:href="@{/matieres/supprimer/{id}(id=${m.id})}" class="btn-outline-danger"
+                                style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-trash"></i> Supprimer
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+
+</html>
