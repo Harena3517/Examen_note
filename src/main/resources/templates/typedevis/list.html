@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html}">
+
+<head>
+    <title>Liste des Types de Devis</title>
+</head>
+
+<body>
+    <div th:fragment="content">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1>Liste des Types de Devis</h1>
+            <a th:href="@{/typedevis/add}" class="btn btn-primary">Ajouter un Type</a>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Libellé</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="td : ${typeDevisList}">
+                    <td th:text="${td.idTypeDevis}"></td>
+                    <td th:text="${td.libelle}"></td>
+                    <td>
+                        <a th:href="@{/typedevis/edit/{id}(id=${td.idTypeDevis})}"
+                            class="btn btn-sm btn-warning">Modifier</a>
+                        <a th:href="@{/typedevis/delete/{id}(id=${td.idTypeDevis})}" class="btn btn-sm btn-danger"
+                            onclick="return confirm('Supprimer ce type ?')">Supprimer</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

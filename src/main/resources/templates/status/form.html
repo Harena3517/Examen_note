@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html}">
+
+<head>
+    <title>Formulaire Status</title>
+</head>
+
+<body>
+    <div th:fragment="content">
+        <h1 th:text="${status.idStatus == null ? 'Ajouter un Status' : 'Modifier le Status'}"></h1>
+        <form th:action="@{/status/save}" th:object="${status}" method="post" class="mt-4">
+            <input type="hidden" th:field="*{idStatus}">
+            <div class="mb-3">
+                <label for="libelle" class="form-label">Libellé</label>
+                <input type="text" class="form-control" id="libelle" th:field="*{libelle}" required>
+            </div>
+            <button type="submit" class="btn btn-success">Enregistrer</button>
+            <a th:href="@{/status}" class="btn btn-secondary">Annuler</a>
+        </form>
+    </div>
+</body>
+
+</html>
